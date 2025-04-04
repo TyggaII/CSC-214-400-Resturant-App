@@ -103,13 +103,13 @@ public class ResturantAppController {
         }
 
         try {
-            // Create file if it doesn't exist
+            // Create a new file if one doesn't exist
             File loginFile = new File(LOGIN_FILE);
             if (!loginFile.exists()) {
                 loginFile.createNewFile();
             }
 
-            // Check if username already exists
+            // Checks user exist in login file
             if (isUsernameTaken(username)) {
                 loginMessage.setText("Username already taken");
                 return;
@@ -146,7 +146,7 @@ public class ResturantAppController {
                         credentials[1].equals(password)) {
                     loginMessage.setText("Login successful!");
 
-                    //hides all screens, ran into an error when it just showed completely white so had to put this in here
+                    //hides all screens, ran into an error when it just showed up completely white so had to put this in here
                     for (javafx.scene.Node node : mainPane.getChildren()) {
                         if (node instanceof VBox) {
                             node.setVisible(false);
