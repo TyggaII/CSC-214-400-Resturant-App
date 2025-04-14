@@ -67,7 +67,7 @@ public class ResturantAppController {
 
         @Override
         public String toString() {
-            return "";
+            return name + " -$" + String.format("%.2f, price);
         }
     }
 
@@ -221,10 +221,54 @@ public class ResturantAppController {
 
     //Methods for main functions
     @FXML
-    public void initialize() {}
+    public void initialize() {
+        itemTypeComboBox.getItems().addAll("Meal", "Drink", "Single Item");
+        itemTypeComboBox.getSelectionModel().selectFirst();
+        loadMenuItemsFromFile();
+    }
 
-    private void loadMenuItemsFromFile() {}
 
+ private void loadMenuItemsFromFile() {
+        File file = new File(MENU_FILE);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String itemType = parts[0];
+                    String itemName = parts[1];
+                    double itemPrice = Double.parseDouble(parts[2]);
+
+                    MenuItem newItem;
+                    switch (itemType) {
+                        case "Meal":
+                            newItem = new Meal(itemName, itemPrice);
+                            meals.add(newItem);
+                            mealListView.getItems().add(newItem);
+                            break;
+                        case "Drink":
+                            newItem = new Drink(itemName, itemPrice);
+                            drinks.add(newItem);
+                            drinkListView.getItems().add(newItem);
+                            break;
+                        case "Single Item":
+                            newItem = new SingleItem(itemName, itemPrice);
+                            singleItems.add(newItem);
+                            singleItemListView.getItems().add(newItem);
+                            break;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Failed to load menu items from the file. " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid number format in the menu file. " + e.getMessage());
+        }
+    }
     @FXML
     private void switchToScreen(ActionEvent event) {
         Button sourceButton = (Button) event.getSource();
