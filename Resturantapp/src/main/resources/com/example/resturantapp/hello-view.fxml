@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.resturantapp.ResturantAppController">
+<StackPane fx:id="mainPane" style="-fx-background-color: #e5c9a8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.resturantapp.ResturantAppController">
     <VBox id="mainMenuScreen" alignment="CENTER" spacing="20" style="-fx-padding: 20;" visible="true">
         <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Welcome to Restaurant App!" />
         <Button id="meals" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Meals" />
@@ -20,6 +21,9 @@
         <Button id="complaint" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Complaint" />
         <Button id="login" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Login" />
         <Button id="staff" fx:id="staffButton" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Staff" visible="false" />
+        <HBox alignment="BOTTOM_CENTER" style="-fx-padding: 10;">
+            <ImageView fx:id="myImageView" fitHeight="118.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+        </HBox>
         <HBox alignment="BOTTOM_LEFT" style="-fx-padding: 10;">
             <Label fx:id="loggedInUserLabel" style="-fx-font-size: 14px;" text="" />
         </HBox>
