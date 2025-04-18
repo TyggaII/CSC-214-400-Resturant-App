@@ -3,8 +3,13 @@ package com.example.resturantapp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class ResturantAppController {
 
@@ -30,6 +36,7 @@ public class ResturantAppController {
     @FXML private Label loginMessage;
     @FXML private Button staffButton;
     @FXML private Label loggedInUserLabel;
+    @FXML private ImageView myImageView;
 
     // to compile data in arrays
     private final ArrayList<MenuItem> meals = new ArrayList<>();
@@ -48,6 +55,11 @@ public class ResturantAppController {
     private final String STAFF_FILE = "staff.txt"; //file for staff credentials
     private String currentUser = null;
     private boolean isStaff = false;
+    private Image myImage;
+
+    public void displayImage(){
+        myImageView.setImage(myImage);
+    }
 
     public abstract class MenuItem {
         private final String name;
@@ -96,9 +108,16 @@ public class ResturantAppController {
         itemTypeComboBox.getItems().addAll("Meal", "Drink", "Single Item");
         itemTypeComboBox.getSelectionModel().selectFirst();
         loadMenuItemsFromFile();
+        try {
+
+            new Image(getClass().getResourceAsStream("/com/example/resturantapp/image.png"));
+        } catch (Exception e) {
+            System.out.println("Could not load image: " + e.getMessage());
+        }
+
     }
 
-    private void loadMenuItemsFromFile() {//Loads items from file
+    private void loadMenuItemsFromFile() {
         File file = new File(MENU_FILE);
         if (!file.exists()) {
             return;
@@ -171,7 +190,7 @@ public class ResturantAppController {
     }
 
     @FXML
-    private void handleAddToOrder(ActionEvent event) {//adds customer order
+    private void handleAddToOrder(ActionEvent event) {
         MenuItem selectedItem = null;
 
         if (mealListView.isVisible() && mealListView.getSelectionModel().getSelectedItem() != null) {
@@ -201,7 +220,7 @@ public class ResturantAppController {
     }
 
     @FXML
-    private void handleAddMenuItem(ActionEvent event) {//adds item 
+    private void handleAddMenuItem(ActionEvent event) {
         String itemName = itemNameInput.getText();
         String itemPriceText = itemPriceInput.getText();
         String itemType = itemTypeComboBox.getSelectionModel().getSelectedItem();
@@ -219,7 +238,7 @@ public class ResturantAppController {
             return;
         }
 
-        MenuItem newItem;//handles new item creation
+        MenuItem newItem;
         if ("Meal".equals(itemType)) {
             newItem = new Meal(itemName, itemPrice);
             meals.add(newItem);
@@ -242,7 +261,7 @@ public class ResturantAppController {
         itemPriceInput.clear();
     }
 
-    private void saveMenuItemToFile(String itemType, MenuItem item) {//saves newly added menu items to file
+    private void saveMenuItemToFile(String itemType, MenuItem item) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(MENU_FILE, true))) {
             writer.println(itemType + "," + item.getName() + "," + item.getPrice());
         } catch (IOException e) {
@@ -251,7 +270,7 @@ public class ResturantAppController {
     }
 
     @FXML
-    private void handleGenerateReceipt(ActionEvent event) {//generates the overall recipt of order
+    private void handleGenerateReceipt(ActionEvent event) {
         if (selectedItems.isEmpty()) {
             System.out.println("No items have been selected for the receipt.");
             return;
@@ -404,9 +423,10 @@ public class ResturantAppController {
         return false;
     }
 
-    
+    // Remaining methods (complaint, about company) can be implemented as needed
     @FXML
     private void handleSubmitComplaint(ActionEvent event) {}
+
 
     @FXML
     private void showAboutCompany(ActionEvent event) {
