@@ -409,5 +409,17 @@ public class ResturantAppController {
     private void handleSubmitComplaint(ActionEvent event) {}
 
     @FXML
-    private void showAboutCompany(ActionEvent event) {}
+    private void showAboutCompany(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About Us");
+        alert.setHeaderText("Service With a Smile!");
+        alert.setContentText(
+                "We are dedicated to serving our customers the best selection of food and drinks with a smile.\n\n" +
+                        "As we grow, we’re introducing a rewards system to thank our loyal guests.\n\n" +
+                        "Delivery is coming soon as we continue expanding and serving more customers.\n\n" +
+                        "Thank you for choosing us!"
+        );
+        alert.showAndWait();
+    }
+
 }

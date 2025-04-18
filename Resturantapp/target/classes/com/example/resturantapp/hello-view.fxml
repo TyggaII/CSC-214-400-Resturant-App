@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.resturantapp.ResturantAppController" fx:id="mainPane">
-    <VBox id="mainMenuScreen" alignment="CENTER" spacing="20" visible="true" style="-fx-padding: 20;">
-        <Label text="Welcome to Restaurant App!" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-        <Button id="meals" text="Meals" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="drinks" text="Drinks" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="singleItems" text="Single Items" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="orderSummary" text="Order Summary" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="staff" text="Staff" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="about" text="About" onAction="#showAboutCompany" style="-fx-font-size: 16px;"/>
-        <Button id="complaint" text="Complaint" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-        <Button id="login" text="Login" onAction="#switchToScreen" style="-fx-font-size: 16px;"/>
-
+<StackPane fx:id="mainPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.resturantapp.ResturantAppController">
+    <VBox id="mainMenuScreen" alignment="CENTER" spacing="20" style="-fx-padding: 20;" visible="true">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Welcome to Restaurant App!" />
+        <Button id="meals" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Meals" />
+        <Button id="drinks" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Drinks" />
+        <Button id="singleItems" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Single Items" />
+        <Button id="orderSummary" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Order Summary" />
+        <Button id="about" onAction="#showAboutCompany" style="-fx-font-size: 16px;" text="About" />
+        <Button id="complaint" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Complaint" />
+        <Button id="login" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Login" />
+        <Button id="staff" fx:id="staffButton" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Staff" visible="false" />
+        <HBox alignment="BOTTOM_LEFT" style="-fx-padding: 10;">
+            <Label fx:id="loggedInUserLabel" style="-fx-font-size: 14px;" text="" />
+        </HBox>
     </VBox>
-    <VBox id="loginScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Login" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <TextField fx:id="loginUsername" promptText="Username"/>
-        <TextField fx:id="loginPassword" promptText="Password"/>
-        <Button text="Login" onAction="#handleLogin"/>
-        <Button text="Sign Up" onAction="#handleSignup"/>
-        <Label fx:id="loginMessage" style="-fx-text-fill: red;"/>
-        <Button text="Back" id="mainMenu" onAction="#switchToScreen"/>
+    <VBox id="loginScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Login" />
+        <TextField fx:id="loginUsername" promptText="Username" />
+        <TextField fx:id="loginPassword" promptText="Password" />
+        <Button onAction="#handleLogin" text="Login" />
+        <Button onAction="#handleSignup" text="Sign Up" />
+        <Label fx:id="loginMessage" style="-fx-text-fill: red;" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back" />
     </VBox>
-    <VBox id="mealsScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Meals" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <ListView fx:id="mealListView" prefHeight="200" prefWidth="300"/>
-        <Button text="Add to Order" onAction="#handleAddToOrder"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="mealsScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Meals" />
+        <ListView fx:id="mealListView" prefHeight="200" prefWidth="300" />
+        <Button onAction="#handleAddToOrder" text="Add to Order" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
-    <VBox id="drinksScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Drinks" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <ListView fx:id="drinkListView" prefHeight="200" prefWidth="300"/>
-        <Button text="Add to Order" onAction="#handleAddToOrder"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="drinksScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Drinks" />
+        <ListView fx:id="drinkListView" prefHeight="200" prefWidth="300" />
+        <Button onAction="#handleAddToOrder" text="Add to Order" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
-    <VBox id="singleItemsScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Single Items" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <ListView fx:id="singleItemListView" prefHeight="200" prefWidth="300"/>
-        <Button text="Add to Order" onAction="#handleAddToOrder"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="singleItemsScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Single Items" />
+        <ListView fx:id="singleItemListView" prefHeight="200" prefWidth="300" />
+        <Button onAction="#handleAddToOrder" text="Add to Order" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
-    <VBox id="orderSummaryScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Order Summary" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <ListView fx:id="selectedItemsList" prefHeight="200" prefWidth="300"/>
-        <Label fx:id="totalPriceLabel" text="Total: $0.00" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-        <Button text="Generate Receipt" onAction="#handleGenerateReceipt"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="orderSummaryScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Order Summary" />
+        <ListView fx:id="selectedItemsList" prefHeight="200" prefWidth="300" />
+        <Label fx:id="totalPriceLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Total: $0.00" />
+        <Button onAction="#handleGenerateReceipt" text="Generate Receipt" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
-    <VBox id="staffScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Staff Mode" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <TextField fx:id="itemNameInput" promptText="Item Name"/>
-        <TextField fx:id="itemPriceInput" promptText="Item Price"/>
-        <ComboBox fx:id="itemTypeComboBox" promptText="Select Item Type"/>
-        <Button text="Add Menu Item" onAction="#handleAddMenuItem"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="staffScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Staff Mode" />
+        <TextField fx:id="itemNameInput" promptText="Item Name" />
+        <TextField fx:id="itemPriceInput" promptText="Item Price" />
+        <ComboBox fx:id="itemTypeComboBox" promptText="Select Item Type" />
+        <Button onAction="#handleAddMenuItem" text="Add Menu Item" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
-    <VBox id="complaintScreen" alignment="CENTER" spacing="10" visible="false" style="-fx-padding: 20;">
-        <Label text="Submit Complaint" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <TextField fx:id="complaintText" promptText="Your complaint"/>
-        <TextField fx:id="custName" promptText="Your name"/>
-        <TextField fx:id="custEmail" promptText="Your email"/>
-        <Button text="Submit Complaint" onAction="#handleSubmitComplaint"/>
-        <Button id="mainMenu" text="Back to Main Menu" onAction="#switchToScreen"/>
+    <VBox id="complaintScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Submit Complaint" />
+        <TextField fx:id="complaintText" promptText="Your complaint" />
+        <TextField fx:id="custName" promptText="Your name" />
+        <TextField fx:id="custEmail" promptText="Your email" />
+        <Button onAction="#handleSubmitComplaint" text="Submit Complaint" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
 </StackPane>
