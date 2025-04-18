@@ -1,0 +1,2 @@
+Meal,10 pc. Chicken Nugget,5.99
+Meal,Chicken Sandwhich,7.99
