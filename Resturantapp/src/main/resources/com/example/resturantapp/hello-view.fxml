@@ -21,12 +21,18 @@
         <Button id="complaint" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Complaint" />
         <Button id="login" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Login" />
         <Button id="staff" fx:id="staffButton" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="Staff" visible="false" />
+        <Button id="userFeedback" fx:id="userFeedbackButton" onAction="#switchToScreen" style="-fx-font-size: 16px;" text="User Feedback" visible="false" />
         <HBox alignment="BOTTOM_CENTER" style="-fx-padding: 10;">
             <ImageView fx:id="myImageView" fitHeight="118.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
         </HBox>
         <HBox alignment="BOTTOM_LEFT" style="-fx-padding: 10;">
             <Label fx:id="loggedInUserLabel" style="-fx-font-size: 14px;" text="" />
         </HBox>
+    </VBox>
+    <VBox id="userFeedbackScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="User Feedback" />
+        <ListView fx:id="feedbackListView" prefHeight="300" prefWidth="400" />
+        <Button id="mainMenu" onAction="#switchToScreen" text="Back to Main Menu" />
     </VBox>
     <VBox id="loginScreen" alignment="CENTER" spacing="10" style="-fx-padding: 20;" visible="false">
         <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Login" />
