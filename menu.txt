@@ -1,2 +1,18 @@
-Meal,10 pc. Chicken Nugget,5.99
-Meal,Chicken Sandwhich,7.99
+Meal,Cheeseburger Meal,8.99
+Meal,Chicken Sandwich Meal,9.49
+Meal,Veggie Burger Meal,8.49
+Meal,Grilled Chicken Salad,10.99
+Drink,Soda,1.99
+Drink,Iced Tea,1.99
+Drink,Lemonade,2.49
+Drink,Bottled Water,1.49
+Single Item,Cheeseburger,4.99
+Single Item,Chicken Sandwich,5.49
+Single Item,French Fries,2.99
+Single Item,Onion Rings,3.49
+Single Item,Side Salad,3.99
+Single Item,$10 Gift Card,10.00
+Single Item,$25 Gift Card,25.00
+Single Item,$50 Gift Card,50.00
+Single Item,Cookie,1.49
+Single Item,Apple Pie,2.99
