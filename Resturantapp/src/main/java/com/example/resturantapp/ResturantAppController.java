@@ -37,6 +37,11 @@ public class ResturantAppController {
     @FXML private Button staffButton;
     @FXML private Label loggedInUserLabel;
     @FXML private ImageView myImageView;
+    @FXML private TextField complaintText;
+    @FXML private TextField custName;
+    @FXML private TextField custEmail;
+    @FXML private Button userFeedbackButton;
+    @FXML private ListView<String> feedbackListView;
 
     // to compile data in arrays
     private final ArrayList<MenuItem> meals = new ArrayList<>();
@@ -159,6 +164,7 @@ public class ResturantAppController {
         }
     }
 
+
     @FXML
     private void switchToScreen(ActionEvent event) {
         Button sourceButton = (Button) event.getSource();
@@ -174,6 +180,10 @@ public class ResturantAppController {
         for (javafx.scene.Node node : mainPane.getChildren()) {
             if (node.getId() != null && node.getId().equals(screenId)) {
                 node.setVisible(true);
+                // Load feedback if it's the feedback screen
+                if (screenId.equals("userFeedbackScreen")) {
+                    loadFeedback();
+                }
                 break;
             }
         }
@@ -378,6 +388,8 @@ public class ResturantAppController {
         loginMessage.setText("Login successful!");
         loggedInUserLabel.setText("Logged in as: " + currentUser);
         staffButton.setVisible(isStaff);
+        userFeedbackButton.setVisible(isStaff);
+
 
         for (javafx.scene.Node node : mainPane.getChildren()) {
             if (node instanceof VBox) {
@@ -390,6 +402,32 @@ public class ResturantAppController {
                 node.setVisible(true);
                 break;
             }
+        }
+    }
+    @FXML
+    private void loadFeedback() {
+        feedbackListView.getItems().clear();
+        File complaintFile = new File(COMPLAINT_FILE);
+
+        if (!complaintFile.exists()) {
+            feedbackListView.getItems().add("No feedback available yet.");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(complaintFile)) {
+            StringBuilder currentFeedback = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.equals("-------------------------")) {
+                    feedbackListView.getItems().add(currentFeedback.toString());
+                    currentFeedback = new StringBuilder();
+                } else {
+                    currentFeedback.append(line).append("\n");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading feedback: " + e.getMessage());
+            feedbackListView.getItems().add("Error loading feedback.");
         }
     }
 
@@ -423,9 +461,59 @@ public class ResturantAppController {
         return false;
     }
 
-    // Remaining methods (complaint, about company) can be implemented as needed
+
     @FXML
-    private void handleSubmitComplaint(ActionEvent event) {}
+    private void handleSubmitComplaint(ActionEvent event) {
+        String complaint = complaintText.getText();
+        String name = custName.getText();
+        String email = custEmail.getText();
+
+        if (complaint.isEmpty() || name.isEmpty() || email.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Missing Information");
+            alert.setContentText("Please fill in all fields to submit a complaint.");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            // Create complaint file if it doesn't exist
+            File complaintFile = new File(COMPLAINT_FILE);
+            if (!complaintFile.exists()) {
+                complaintFile.createNewFile();
+            }
+
+            // Append the complaint to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(COMPLAINT_FILE, true))) {
+                writer.println("User: " + currentUser);
+                writer.println("Name: " + name);
+                writer.println("Email: " + email);
+                writer.println("Complaint: " + complaint);
+                writer.println("-------------------------");
+            }
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Complaint Submitted");
+            alert.setContentText("Your complaint has been recorded. Thank you for your feedback.");
+            alert.showAndWait();
+
+            // Clear fields
+            complaintText.clear();
+            custName.clear();
+            custEmail.clear();
+
+        } catch (IOException e) {
+            System.out.println("Error saving complaint: " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Submission Failed");
+            alert.setContentText("There was an error submitting your complaint. Please try again.");
+            alert.showAndWait();
+        }
+    }
 
 
     @FXML
